@@ -29,7 +29,6 @@ def upload():
             upload_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
             file.save(upload_path)
 
-            # Predict the result (ensure predict_image handles exceptions if any)
             try:
                 output_path, label = predict_image(upload_path)
 
@@ -43,11 +42,10 @@ def upload():
                                        label=label)
             except Exception as e:
                 return render_template('upload.html', error="Error processing the image: " + str(e))
-
         else:
             return render_template('upload.html', error="Invalid file type. Please upload a valid image.")
 
-  return render_template('upload.html', image_url=os.path.basename(output_path), label=label)
+    return render_template('upload.html')  # For GET request
 
 # Serve the processed output image
 @app.route('/outputs/<filename>')
