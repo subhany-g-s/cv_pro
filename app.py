@@ -5,7 +5,6 @@ import uuid
 import shutil
 
 app = Flask(__name__)
-app.config['OUTPUT_FOLDER'] = '/outputs'
 
 UPLOAD_FOLDER = os.path.join(os.getcwd(), 'uploads')
 
@@ -14,7 +13,10 @@ os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 # Ensure folders exist
-os.makedirs(app.config['OUTPUT_FOLDER'], exist_ok=True)
+OUTPUT_FOLDER = os.path.join(os.getcwd(), 'outputs')
+os.makedirs(OUTPUT_FOLDER, exist_ok=True)
+app.config['OUTPUT_FOLDER'] = OUTPUT_FOLDER
+
 
 @app.route('/')
 def home():
