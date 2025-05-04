@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Road Image</title>
+    <style>
+        :root {
+            --bg-dark: #0a0f24;
+            --card-bg: #11162c;
+            --primary: #00fff7;
+            --accent: #00b3ff;
+            --text-light: #d0d0d0;
+            --button-bg: #00fff7;
+            --button-hover: #00b3ff;
+            --border-radius: 12px;
+            --padding: 20px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow-y: auto;
+        }
+
+        h2 {
+            font-size: 36px;
+            color: var(--primary);
+            margin-bottom: 20px;
+            text-align: center;
+            letter-spacing: 1px;
+            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Form Styling */
+        form {
+            background: rgba(0, 0, 0, 0.6);
+            padding: 40px;
+            border-radius: var(--border-radius);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            max-width: 600px;
+            margin: 20px;
+            text-align: center;
+            width: 100%;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        form:hover {
+            transform: scale(1.05);
+        }
+
+        /* Input and Label Styling */
+        label {
+            font-size: 18px;
+            color: var(--text-light);
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        input[type="file"] {
+            margin-top: 10px;
+            padding: 12px;
+            border-radius: var(--border-radius);
+            border: 2px solid var(--primary);
+            background-color: transparent;
+            color: var(--text-light);
+            width: 100%;
+            font-size: 16px;
+            outline: none;
+        }
+
+        input[type="file"]:hover {
+            border-color: var(--accent);
+            cursor: pointer;
+        }
+
+        /* Image Preview */
+        img {
+            margin-top: 20px;
+            border: 2px solid var(--primary);
+            border-radius: var(--border-radius);
+            max-width: 100%;
+            height: auto;
+            transition: opacity 0.5s ease-in-out;
+        }
+
+        img:hover {
+            opacity: 0.8;
+        }
+
+        /* Button Styling */
+        .btn {
+            padding: 15px 30px;
+            background-color: var(--primary);
+            color: #000;
+            border: none;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            font-size: 18px;
+            width: 100%;
+            margin-top: 20px;
+            transition: background-color 0.3s ease-in-out;
+        }
+
+        .btn:hover {
+            background-color: var(--accent);
+        }
+
+        /* Result Section */
+        .result-section {
+            margin-top: 40px;
+            text-align: center;
+        }
+
+        .result-section h3 {
+            color: var(--primary);
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .result-section p {
+            color: var(--text-light);
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .result-section img {
+            border-radius: var(--border-radius);
+            border: 3px solid var(--accent);
+            margin-top: 20px;
+        }
+
+        /* Hide scrollbar globally but allow scrolling */
+        ::-webkit-scrollbar {
+            width: 0px;
+        }
+
+    </style>
+    <script>
+        // Function for image preview before upload
+        function previewImage(event) {
+            const reader = new FileReader();
+            reader.onload = function() {
+                const output = document.getElementById('preview');
+                output.src = reader.result;
+                output.style.display = "block";
+            };
+            reader.readAsDataURL(event.target.files[0]);
+        }
+    </script>
+</head>
+<body>
+
+    <!-- Page Header -->
+    <h2>Upload a Road Image for Crack and Pothole Detection</h2>
+
+    <!-- Form for File Upload -->
+    <form method="POST" enctype="multipart/form-data">
+        <label for="image">Choose an image to upload:</label><br>
+        <input type="file" name="image" accept="image/*" onchange="previewImage(event)" required>
+        <br><br>
+
+        <!-- Image Preview -->
+        <img id="preview" src="#" alt="Image Preview" style="display: none;" />
+
+        <!-- Submit Button -->
+        <button class="btn" type="submit">Analyze</button>
+    </form>
+
+    <!-- Displaying the Prediction Result -->
+    {% if image_url %}
+        <div class="result-section">
+            <h3>Prediction Result:</h3>
+            <p>{{ label }}</p>
+            
+            <!-- Display the image with detected cracks and potholes -->
+            <h4>Detected Image with Cracks and Potholes:</h4>
+            <img src="{{ url_for('static', filename='outputs/' + image_url) }}" alt="Predicted Output">
+            
+            <!-- Back to Home Link -->
+            <br><br>
+            <a href="/" class="btn" style="background-color: var(--accent); color: #000; text-decoration: none;">Back to Home</a>
+        </div>
+    {% endif %}
+
+</body>
+</html>

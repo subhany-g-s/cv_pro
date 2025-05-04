@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AI Road Defect Detector</title>
+    <style>
+        :root {
+            --bg-dark: #0a0f24;
+            --card-bg: #11162c;
+            --primary: #00fff7;
+            --accent: #00b3ff;
+            --text-light: #d0d0d0;
+            --button-bg: #00fff7;
+            --button-hover: #00b3ff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            overflow-x: hidden;
+        }
+
+        header {
+            height: 100vh;
+            background-image: linear-gradient(to bottom, rgba(10, 15, 36, 0.8), rgba(10, 15, 36, 0.9)),
+                              url('https://i.pinimg.com/736x/86/08/4f/86084f63835b0b4f6437bec117a4d4ec.jpg');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .hero {
+            text-align: center;
+            max-width: 800px;
+            padding: 40px;
+            animation: fadeIn 1.5s ease;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            line-height: 1.5;
+            margin-bottom: 30px;
+        }
+
+        .hero a.button {
+            padding: 16px 36px;
+            background-color: var(--button-bg);
+            color: #000;
+            font-size: 1.1rem;
+            font-weight: bold;
+            text-decoration: none;
+            border-radius: 30px;
+            transition: all 0.3s ease;
+        }
+
+        .hero a.button:hover {
+            background-color: var(--button-hover);
+            transform: scale(1.05);
+        }
+
+        section {
+            padding: 80px 40px;
+            text-align: center;
+        }
+
+        .section-light {
+            background-color: #151a2f;
+        }
+
+        .section-dark {
+            background-color: #0a0f24;
+        }
+
+        h2 {
+            color: var(--accent);
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        .features {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 40px;
+            margin-top: 40px;
+        }
+
+        .feature-card {
+            background-color: var(--card-bg);
+            padding: 20px;
+            border-radius: 16px;
+            width: 300px;
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.1);
+        }
+
+        .feature-card img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 12px;
+            margin-bottom: 15px;
+        }
+
+        footer {
+            padding: 40px;
+            text-align: center;
+            font-size: 0.9rem;
+            color: #888;
+            background-color: #050912;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .feature-card {
+                width: 90%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="hero">
+        <h1>AI-Powered Road Defect Detector</h1>
+        <p>
+            Leverage machine learning and computer vision to identify cracks and potholes from road images in real time.
+            Enhance road safety for smart cities and enable intelligent navigation for autonomous vehicles and advanced driver-assistance systems (ADAS).
+        </p>
+        <a href="{{ url_for('upload') }}" class="button">Start Detection 🚀</a>
+    </div>
+</header>
+
+<section class="section-light">
+    <h2>Why Road Defect Detection Matters</h2>
+    <p>
+        Cracks and potholes not only damage vehicles but also pose serious safety risks.
+        Early detection enables proactive maintenance, reduces costs, and saves lives.
+    </p>
+    <div class="features">
+        <div class="feature-card">
+            <img src="https://i.pinimg.com/736x/b9/96/7d/b9967dab9d5c38bbea02a5f754898115.jpg" alt="Road Crack">
+            <h3>Crack Detection</h3>
+            <p>Detect hairline and major cracks using trained segmentation models and advanced image processing techniques.</p>
+        </div>
+        <div class="feature-card">
+            <img src="https://i.pinimg.com/736x/bf/8a/ff/bf8afff3dcde09cc0c550a38f01d3480.jpg" alt="Pothole">
+            <h3>Pothole Detection</h3>
+            <p>Pinpoint potholes in various road conditions using AI-powered classification and pattern analysis.</p>
+        </div>
+        <div class="feature-card">
+            <img src="https://i.pinimg.com/736x/1d/8d/45/1d8d45e3c59c8da4b8a595c0e1301cfe.jpg" alt="Infrastructure">
+            <h3>Smart Maintenance</h3>
+            <p>Enable cities to schedule repairs based on real data insights, reducing manual inspection efforts.</p>
+        </div>
+        <div class="feature-card">
+            <img src="https://i.pinimg.com/736x/cc/8a/cd/cc8acd76868aad386dbbad733451c03c.jpg" alt="Autonomous Vehicles">
+            <h3>Autonomous Driving</h3>
+            <p>Assist self-driving cars by feeding real-time road condition data, improving decision-making in navigation and obstacle avoidance.</p>
+        </div>
+    </div>
+</section>
+
+<section class="section-light">
+    <h2>Beyond Just Detection</h2>
+    <p>
+        Our solution goes beyond identifying road defects — it generates intelligent insights by analyzing patterns in road wear and surface degradation.
+        By incorporating segmentation masks for cracks and potholes into the training process, the machine learning model learns more accurate spatial features, enabling precise localization and classification.
+        These predictions can be visualized in real time, facilitating automated inspection, maintenance planning, and integration with city infrastructure systems.
+        This opens possibilities for large-scale road monitoring, smart city analytics, and dynamic decision-making in autonomous navigation systems.
+    </p>
+</section>
+
+</body>
+</html>
