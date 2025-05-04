@@ -189,7 +189,7 @@
             
             <!-- Display the image with detected cracks and potholes -->
             <h4>Detected Image with Cracks and Potholes:</h4>
-            <img src="{{ url_for('uploaded_file', filename=image_url) }}" alt="Predicted Output">
+            <img src="{{ url_for( filename='outputs/' + image_url) }}" alt="Predicted Output">
             
             <!-- Back to Home Link -->
             <br><br>
