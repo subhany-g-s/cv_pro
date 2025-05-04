@@ -6,13 +6,13 @@ import shutil
 
 app = Flask(__name__)
 
-# Define upload and output directories
-UPLOAD_FOLDER = os.path.join(os.getcwd(), 'uploads')
-os.makedirs(UPLOAD_FOLDER, exist_ok=True)
-app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+UPLOAD_FOLDER = '/tmp/uploads'
+OUTPUT_FOLDER = '/tmp/outputs'
 
-OUTPUT_FOLDER = os.path.join(os.getcwd(), 'outputs')
+os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 os.makedirs(OUTPUT_FOLDER, exist_ok=True)
+
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.config['OUTPUT_FOLDER'] = OUTPUT_FOLDER
 
 @app.route('/')
@@ -47,7 +47,7 @@ def upload():
         else:
             return render_template('upload.html', error="Invalid file type. Please upload a valid image.")
 
-    return render_template('upload.html')
+  return render_template('upload.html', image_url=os.path.basename(output_path), label=label)
 
 # Serve the processed output image
 @app.route('/outputs/<filename>')
