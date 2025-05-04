@@ -4,8 +4,10 @@ import joblib
 import os
 
 # Load models
-svm_crack = joblib.load("/svm_crack.pkl")
-svm_pothole = joblib.load("/svm_pothole.pkl")
+model_path = os.path.join(os.path.dirname(__file__), 'svm_crack.pkl')
+svm_crack = joblib.load(model_path)
+model_path = os.path.join(os.path.dirname(__file__), 'svm_pothole.pkl')
+svm_pothole = joblib.load(model_path)
 lane_mask_dir = "C:/Users/subha/Downloads/Cracks-and-Potholes-in-Road-Images/v1/Lanes"
 
 def calculate_mask_coverage(mask_path, image_shape):
