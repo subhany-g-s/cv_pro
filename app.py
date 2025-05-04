@@ -5,8 +5,8 @@ import uuid
 import shutil
 
 app = Flask(__name__)
-app.config['UPLOAD_FOLDER'] = 'static/uploads'
-app.config['OUTPUT_FOLDER'] = 'static/outputs'
+app.config['UPLOAD_FOLDER'] = '/uploads'
+app.config['OUTPUT_FOLDER'] = '/outputs'
 
 # Ensure folders exist
 os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
