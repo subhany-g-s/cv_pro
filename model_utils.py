@@ -48,10 +48,16 @@ def predict_image(image_path):
     image = cv2.imread(image_path)
     filename = os.path.basename(image_path)
     features = extract_features(image, filename).reshape(1, -1)
+    
     crack_pred = svm_crack.predict(features)[0]
     pothole_pred = svm_pothole.predict(features)[0]
+    
     result_img = localize_and_highlight(image, crack_pred, pothole_pred)
-    output_path = os.path.join("static", "result.jpg")
+    
+    output_filename = f"result_{filename}"
+    output_path = os.path.join("outputs", output_filename)
     cv2.imwrite(output_path, result_img)
+
     label = f"Crack: {'Yes' if crack_pred else 'No'}, Pothole: {'Yes' if pothole_pred else 'No'}"
     return output_path, label
+
