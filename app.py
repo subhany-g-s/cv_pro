@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, send_from_directory
 import os
 from model_utils import predict_image
 import uuid
@@ -6,21 +6,18 @@ import shutil
 
 app = Flask(__name__)
 
+# Define upload and output directories
 UPLOAD_FOLDER = os.path.join(os.getcwd(), 'uploads')
-
-# Make sure the folder exists
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
-
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-# Ensure folders exist
+
 OUTPUT_FOLDER = os.path.join(os.getcwd(), 'outputs')
 os.makedirs(OUTPUT_FOLDER, exist_ok=True)
 app.config['OUTPUT_FOLDER'] = OUTPUT_FOLDER
 
-
 @app.route('/')
 def home():
-    return render_template('index.html')  # Make sure index.html is in the templates folder
+    return render_template('index.html')  # Ensure index.html is in the templates folder
 
 @app.route('/upload', methods=['GET', 'POST'])
 def upload():
@@ -52,5 +49,10 @@ def upload():
 
     return render_template('upload.html')
 
+# Serve the processed output image
+@app.route('/outputs/<filename>')
+def uploaded_file(filename):
+    return send_from_directory(app.config['OUTPUT_FOLDER'], filename)
+
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=True)
