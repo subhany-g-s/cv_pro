@@ -45,7 +45,7 @@ def upload():
         else:
             return render_template('upload.html', error="Invalid file type. Please upload a valid image.")
 
-    return render_template('upload.html', image_url=os.path.basename(output_path), label=label)
+    return render_template('upload.html')
 
 # Serve the processed output image
 @app.route('/outputs/<filename>')
