@@ -5,11 +5,15 @@ import uuid
 import shutil
 
 app = Flask(__name__)
-app.config['UPLOAD_FOLDER'] = '/uploads'
 app.config['OUTPUT_FOLDER'] = '/outputs'
 
+UPLOAD_FOLDER = os.path.join(os.getcwd(), 'uploads')
+
+# Make sure the folder exists
+os.makedirs(UPLOAD_FOLDER, exist_ok=True)
+
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 # Ensure folders exist
-os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
 os.makedirs(app.config['OUTPUT_FOLDER'], exist_ok=True)
 
 @app.route('/')
